@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+
+
+    <!--the Ajax.js file we usually use -->
+    <script type = "text/javascript" src = "ajax.js"></script>
+    <style>
+        #container {
+            width: 1000px;
+            height: 1000px;
+            background-color: white;
+
+        }
+
+    </style>
+
+
+    <script>
+
+
+        document.addEventListener("DOMContentLoaded", function (event){
+
+            var form = document.getElementById('myForm');
+            var arr;
+            function create () {
+                var div = document.getElementById("container");
+                for (var i = 0; i < arr.length;i++) {
+                    var newDiv = document.createElement("div");
+                    newDiv.className = "scale";
+                    newDiv.style.width = arr[i] + '%';
+                    div.appendChild(newDiv);
+                }
+            }
+
+            //1
+            form.addEventListener("submit", function(event){
+                event.preventDefault();
+
+                console.log(getData());
+                //3
+                Ajax.request('POST', 'server2.php', true, function (response){
+                    response = JSON.parse(response);
+                    arr = JSON.parse(response);
+                    document.getElementById('container').innerHTML = '<h1>' + response + '</h1>';
+                } ,create (),getData());
+
+            });
+            //2
+            function getData(){
+
+                var name = document.getElementById('name');
+
+
+                var obj = {};
+                obj[name.name] = name.value;
+
+                return obj;
+            }
+            var arr;
+            function create () {
+                var div = document.getElementById("container");
+                for (var i = 0; i < arr.length;i++) {
+                    var newDiv = document.createElement("div");
+                    newDiv.className = "scale";
+                    newDiv.style.width = arr[i] + '%';
+                    div.appendChild(newDiv);
+                }
+            }
+
+        });
+    </script>
+</head>
+<body>
+<div id="container">
+    <form method="post" id="myForm">
+        <input id="name" type="text" name="name">
+
+        <input type="submit">
+    </form>
+</div>
+</body>

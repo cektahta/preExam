@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel = "stylesheet" type = "text/css" href = "style.css">
+    <script type = "text/javascript" src = "ajax.js"></script>
+    <style>
+        #wrapper {
+            width:500px;
+            height:200px;
+            background-color: white;
+            border: 1px solid black;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 100px;
+            display: flex;
+            align-items: flex-end;
+        }
+        .scale {
+            width: 40px;
+            background-color: aquamarine;
+            margin-right: 10px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="wrapper">
+
+</div>
+<script>
+
+    var arr2;
+    var div = document.getElementById("wrapper");
+    function changeInfo() {
+
+        for (var i = 0; i < arr2.length; i++) {
+
+            var newDiv = document.createElement("div");
+            newDiv.className = "scale";
+            newDiv.style.height = arr2[i] + 'px';
+            div.appendChild(newDiv);
+
+
+
+        }
+
+    }
+
+    document.addEventListener('DOMContentLoaded', function(){
+        Ajax.request('GET', 'server.php', true, function (response){
+            arr2 = JSON.parse(response);
+            changeInfo();
+        });
+
+    }, false);
+
+
+
+
+</script>
+</body>
+
+</html>
